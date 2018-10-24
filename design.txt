@@ -1,0 +1,27 @@
+//generally
+|0x79|1byte cmd|2bytes payload len|payload data|
+cmd code:
+0: register peer id; return ramdom at most 100 peer id && total peer count
+->|79|00|4bytes id|
+<-|51|00|2bytes len|data|4bytes count|
+
+1: request peers sig data
+->|79|01|4bytes peer id|2bytes sig data len|sig data|
+//server to another peer begin-- direction reverse for relay
+->|51|02|4bytes peer id|2bytes sig data len|sig data|
+<-|79|02|4bytes peer id|2bytes sig data len|sig data|
+//-----------------------end
+<-|51|01|4bytes peer id|2bytes sig data len|sig data|
+
+2: get some peer ids
+->|79|03|
+<-|51|03|2bytes peer len|peer ids|
+
+3: send global msg
+->|79|04|1byte msg len|msg data|
+<-|51|04|1byte msg len|msg data|     --to all relay
+
+4: heartbeat
+->|79|05|
+<-|51|05|4bytes count|
+
