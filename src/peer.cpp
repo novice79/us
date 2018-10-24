@@ -1,6 +1,6 @@
 #include "peer.h"
 
-void Peer::send(const std::string& data)
+void Peer::send(const std::vector<uint8_t>& data)
 {
     psock_->async_send_to(
         boost::asio::buffer(data), endpoint,

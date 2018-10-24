@@ -44,12 +44,15 @@ void PMgr::do_receive()
                             boost::copy(peers_ | boost::adaptors::map_keys, std::back_inserter(all_id));
                             std::sample(all_id.begin(), all_id.end(), std::back_inserter(sel_ids),
                                         50, std::mt19937{std::random_device{}()});
-                            std::array<uint8_t, sel_ids.size()+8> buff;
+                            std::vector<uint8_t> buff(sel_ids.size()+8);
                             uint16_t id_len = sel_ids.size();
                             uint32_t total_len = all_id.size();
                             buff[0] = 0x51;
                             buff[1] = 0x00;
                             memcpy( &buff[2], &id_len, sizeof(id_len) );
+                            memcpy( &buff[4], sel_ids.data(), id_len );
+                            memcpy( &buff[buff.size()-4], &total_len, sizeof(total_len) );
+                            p->send(buff);
                         }
                         break;
                     case 1:

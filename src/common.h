@@ -25,6 +25,8 @@
 
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+#include <boost/range/adaptor/map.hpp>
+#include <boost/range/algorithm/copy.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 using boost::asio::ip::udp;
 
