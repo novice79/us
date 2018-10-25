@@ -6,6 +6,11 @@ class Peer;
 class PMgr
 {
     void peer_checker(const boost::system::error_code& /*e*/, boost::asio::deadline_timer* t);
+    void handle_reg(uint16_t len);
+    void handle_sig(uint16_t len);
+    void handle_pick_ids(uint16_t len);
+    void handle_msg_relay(uint16_t len);
+    void handle_heartbeat(uint16_t len);
   public:
     PMgr(boost::asio::io_context &io_context, short port)
         : io_context_(io_context), socket_(io_context, udp::endpoint(udp::v4(), port))

@@ -19,7 +19,7 @@ cmd code:
 
 3: send global msg
 ->|79|04|1byte msg len|msg data|
-<-|51|04|1byte msg len|msg data|     --to all relay
+<-|51|04|4bytes src peer id|1byte msg len|msg data|     --to all relay
 
 4: heartbeat
 ->|79|05|
